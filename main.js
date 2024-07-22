@@ -2,6 +2,7 @@ const ctx = document.getElementById("canvas").getContext("2d");
 const sizeInput = document.getElementById("sizeInput")
 
 function plotGrid(side) {
+    console.log("plotting")
     radius = side/2;
     // Generate grid
     grid = [];
@@ -41,10 +42,18 @@ function plotGrid(side) {
     ctx.strokeStyle = "red";
     ctx.stroke();
 }
-r = 25;
+
+r = 4;
+sizeInput.value = r;
 plotGrid(r)
 
 sizeInput.addEventListener("change", ()=> {
     r = parseInt(sizeInput.value);
     plotGrid(r)
+})
+
+timeId = 0;
+window.addEventListener("resize", ()=>{
+    clearTimeout(timeId);
+    timeId = setTimeout(()=>{plotGrid(r)}, 200);
 })

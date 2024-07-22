@@ -8,6 +8,8 @@ const offColour = "lightGray";
 const onColour = "blue";
 const circleColour = "red";
 const svg = document.getElementById("svg");
+const svgns = "http://www.w3.org/2000/svg";
+
 
 // Parameters
 let zoom = 1;
@@ -20,67 +22,41 @@ plotGrid();
 
 
 function plotGrid() {
-    radius = side/2;
-
-    // Generate grid
-    grid = [];
-    for(x = -radius; x < radius; x++) {
-        ax = Math.abs(x + 0.5);
-        grid.push([])
-        for(y = -radius; y < radius; y++) {
-            ay = Math.abs(y + 0.5);
-
-            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
-                grid.at(-1).push(true);
-            }
-            else {
-                grid.at(-1).push(false);
-            }
-        }
-    }
-
-    // Draw on canvas
-    // ctx.canvas.width = zoom * container.clientWidth;
-    // ctx.canvas.height = zoom* container.clientHeight;
-
-    // ctx.fillStyle = backColour;
-    // ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+    radius = side/2 - 0.65;
+    s = side/2;
 
     svg.innerHTML = ""
     
-    nx = grid.length;
-    ny = grid[0].length;
-
-    // sx = ctx.canvas.width / nx;
-    // sy = ctx.canvas.height / ny;
+    nx = side;
+    ny = side;
 
     sx = 100/nx;
     sy = 100/ny;
 
-    for(x = 0; x < nx; x++) {
-        for(y = 0; y < ny; y++) {
-            // ctx.fillStyle = grid[x][y] ? onColour : offColour;
-            // ctx.fillRect((x+borderSize) * sx, (y+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
+    // Generate grid
+    grid = [];
+
+    for(i = 0; i < side; i++) {
+        x = i-s;
+        ax = Math.abs(x + 0.5);
+        for(j = 0; j < side; j++) {
+            y = j-s;
+            ay = Math.abs(y + 0.5);
+
+            let colour = radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2);
             
-            // Create rectangle
-            let svgns = "http://www.w3.org/2000/svg";
             let rect = document.createElementNS(svgns, 'rect');
-            rect.setAttribute("x", (x+borderSize) * sx);
-            rect.setAttribute("y", (y+borderSize) * sy);
+            rect.onmouseover = (evt) => {console.log(evt.target)}
+            rect.setAttribute("x", (i+borderSize) * sx);
+            rect.setAttribute("y", (j+borderSize) * sy);
             rect.setAttribute("width", (1-2*borderSize)*sx);
             rect.setAttribute("height", (1-2*borderSize)*sy);
             rect.setAttribute("rx",0);
             rect.setAttribute("ry",0);
-            rect.setAttribute("fill", grid[x][y] ? onColour : offColour);
+            rect.setAttribute("fill", colour ? onColour : offColour);
             svg.appendChild(rect);
         }
     }
-    
-    // Draw on SVG
-    
-
-
-
 }
 
 sizeInput.addEventListener("change", ()=> {

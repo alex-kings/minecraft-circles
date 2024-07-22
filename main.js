@@ -9,15 +9,30 @@ const circleColour = "red";
 function plotGrid(side) {
     
 
-    radius = side/2 ;
+    radius = side/2 - 0.5;
+    intRad = Math.ceil(radius);
     // Generate grid
     grid = [];
-    for(x = -radius; x < radius; x++) {
-        ax = Math.abs(x + 0.5);
-        grid.push([])
-        for(y = -radius; y < radius; y++) {
-            ay = Math.abs(y + 0.5);
+    // for(x = -radius; x < radius; x++) {
+    //     ax = Math.abs(x + 0.5);
+    //     grid.push([])
+    //     for(y = -radius; y < radius; y++) {
+    //         ay = Math.abs(y + 0.5);
             
+    //         if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
+    //             grid.at(-1).push(true);
+    //         }
+    //         else {
+    //             grid.at(-1).push(false);
+    //         }
+    //     }
+    // }
+
+    for(x = -side/2; x < side/2; x++) {
+        ax = Math.abs(x + 0.5);
+        grid.push([]);
+        for(y=-side/2; y < side/2; y++) {
+            ay = Math.abs(y + 0.5);
             if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
                 grid.at(-1).push(true);
             }

@@ -17,46 +17,25 @@ function plotGrid(side) {
     ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
     
     radius = side/2 - 0.5;
-    intRad = Math.ceil(radius);
-    // Generate grid
-    grid = [];
-
-    for(x = -side/2; x < side/2; x++) {
-        ax = Math.abs(x + 0.5);
-        grid.push([]);
-        for(y=-side/2; y < side/2; y++) {
-            ay = Math.abs(y + 0.5);
-            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
-                grid.at(-1).push(true);
-            }
-            else {
-                grid.at(-1).push(false);
-            }
-        }
-    }
-
+    
     // Draw on canvas
+    sx = ctx.canvas.width / side;
+    sy = ctx.canvas.height / side;
     
-    
-    nx = grid.length;
-    ny = grid[0].length;
+    s = side/2;
+    for(i = 0; i < side; i++) {
+        x = i-s;
+        ax = Math.abs(x + 0.5);
+        for(j = 0; j < side; j++) {
+            y = j-s;
+            ay = Math.abs(y + 0.5);
+            ctx.fillStyle = radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2) ? onColour : offColour;
+            
+            ctx.fillRect((i+borderSize) * sx, (j+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
 
-    sx = ctx.canvas.width / nx;
-    sy = ctx.canvas.height / ny;
-
-    for(x = 0; x < nx; x++) {
-        for(y = 0; y < ny; y++) {
-            ctx.fillStyle = grid[x][y] ? onColour : offColour;
-            ctx.fillRect((x+borderSize) * sx, (y+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
         }
-
     }
-    // ctx.beginPath();
-    // ctx.strokeStyle = circleColour;
-    // ctx.arc(ctx.canvas.width / 2, ctx.canvas.height/2, radius * sx, 2*Math.PI, false);
-    // ctx.stroke();
 
-    
     end = window.performance.now();
     console.log("elapsed = ", end - start)
 }
@@ -68,7 +47,7 @@ plotGrid(r);
 
 sizeInput.addEventListener("change", ()=> {
     r = parseInt(sizeInput.value);
-    if(r < 2 || r > 2000) return;
+    if(r < 2 || r > 400) return;
     plotGrid(r)
 })
 

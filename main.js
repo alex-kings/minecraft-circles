@@ -19,31 +19,62 @@ plotGrid();
 
 
 function plotGrid() {
-    // Initialise canvas
-    ctx.canvas.width = zoom * container.offsetWidth;
-    ctx.canvas.height = zoom* container.offsetHeight;
+    radius = side/2;
+
+    // Generate grid
+    grid = [];
+    for(x = -radius; x < radius; x++) {
+        ax = Math.abs(x + 0.5);
+        grid.push([])
+        for(y = -radius; y < radius; y++) {
+            ay = Math.abs(y + 0.5);
+
+            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
+                grid.at(-1).push(true);
+            }
+            else {
+                grid.at(-1).push(false);
+            }
+        }
+    }
+
+    // Draw on canvas
+    ctx.canvas.width = zoom * container.clientWidth;
+    ctx.canvas.height = zoom* container.clientHeight;
 
     ctx.fillStyle = backColour;
     ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
     
-    radius = side/2 - 0.5;
-    
-    // Draw on canvas
-    sx = ctx.canvas.width / side;
-    sy = ctx.canvas.height / side;
-    
-    s = side/2;
-    for(i = 0; i < side; i++) {
-        x = i-s;
-        ax = Math.abs(x + 0.5);
-        for(j = 0; j < side; j++) {
-            y = j-s;
-            ay = Math.abs(y + 0.5);
-            ctx.fillStyle = radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2) ? onColour : offColour;
-            
-            ctx.fillRect((i+borderSize) * sx, (j+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
+    nx = grid.length;
+    ny = grid[0].length;
+
+    sx = ctx.canvas.width / nx;
+    sy = ctx.canvas.height / ny;
+
+    for(x = 0; x < nx; x++) {
+        for(y = 0; y < ny; y++) {
+            ctx.fillStyle = grid[x][y] ? onColour : offColour;
+            ctx.fillRect((x+borderSize) * sx, (y+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
         }
+
     }
+    
+    // // Draw on canvas immediately
+    // sx = ctx.canvas.width / side;
+    // sy = ctx.canvas.height / side;
+    
+    // s = side/2;
+    // for(i = 0; i < side; i++) {
+    //     x = i-s;
+    //     ax = Math.abs(x + 0.5);
+    //     for(j = 0; j < side; j++) {
+    //         y = j-s;
+    //         ay = Math.abs(y + 0.5);
+    //         ctx.fillStyle = radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2) ? onColour : offColour;
+            
+    //         ctx.fillRect((i+borderSize) * sx, (j+borderSize) * sy, (1-2*borderSize)*sx, (1-2*borderSize)*sy);
+    //     }
+    // }
 }
 
 sizeInput.addEventListener("change", ()=> {

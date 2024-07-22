@@ -4,6 +4,12 @@
     position:relative;
     overflow: scroll;
 }
+.canvas-outer{
+    width:15rem;
+}
+.svg-outer {
+    width:15rem;
+}
 canvas {
     position:absolute;
     /* width:100%;

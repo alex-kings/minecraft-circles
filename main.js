@@ -1,6 +1,8 @@
 const ctx = document.getElementById("canvas").getContext("2d");
+const sizeInput = document.getElementById("sizeInput")
 
-function getGrid(radius) {
+function plotGrid(side) {
+    radius = side/2;
     // Generate grid
     grid = [];
     for(x = -radius; x < radius; x++) {
@@ -9,7 +11,7 @@ function getGrid(radius) {
         for(y = -radius; y < radius; y++) {
             ay = Math.abs(y + 0.5);
             
-            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.5)**2 + (ay - 0.5)**2)) {
+            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
                 grid.at(-1).push(true);
             }
             else {
@@ -17,10 +19,7 @@ function getGrid(radius) {
             }
         }
     }
-    
-    return grid
-}
-function plotGrid(grid) {
+
     ctx.canvas.width = ctx.canvas.offsetWidth;
     ctx.canvas.height = ctx.canvas.offsetHeight;
     
@@ -30,8 +29,6 @@ function plotGrid(grid) {
     sx = ctx.canvas.width / nx;
     sy = ctx.canvas.height / ny;
 
-    
-
     for(x = 0; x < nx; x++) {
         for(y = 0; y < ny; y++) {
             ctx.fillStyle = grid[x][y] ? "blue" : "gray";
@@ -40,9 +37,14 @@ function plotGrid(grid) {
 
     }
     ctx.beginPath();
-    ctx.arc(ctx.canvas.width / 2, ctx.canvas.height/2, r * sx, 2*Math.PI, false);
+    ctx.arc(ctx.canvas.width / 2, ctx.canvas.height/2, radius * sx, 2*Math.PI, false);
     ctx.strokeStyle = "red";
     ctx.stroke();
 }
 r = 25;
-plotGrid(getGrid(r))
+plotGrid(r)
+
+sizeInput.addEventListener("change", ()=> {
+    r = parseInt(sizeInput.value);
+    plotGrid(r)
+})

@@ -120,5 +120,13 @@ function handleMouseover(evt, grid) {
         ny++;
         d++;
     }
-
 }
+
+
+// IMPROVEMENTS:
+/**
+ * - Reduce lag by removing all the useless elements. Plot long lines instead.
+ * - Display number of blocks in x and y directions.
+ * 
+ * 
+ */

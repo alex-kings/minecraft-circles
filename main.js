@@ -7,26 +7,19 @@ const onColour = "blue";
 const circleColour = "red";
 
 function plotGrid(side) {
-    
+    start = window.performance.now()
 
+    // Initialise canvas
+    ctx.canvas.width = ctx.canvas.offsetWidth;
+    ctx.canvas.height = ctx.canvas.offsetHeight;
+
+    ctx.fillStyle = backColour;
+    ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+    
     radius = side/2 - 0.5;
     intRad = Math.ceil(radius);
     // Generate grid
     grid = [];
-    // for(x = -radius; x < radius; x++) {
-    //     ax = Math.abs(x + 0.5);
-    //     grid.push([])
-    //     for(y = -radius; y < radius; y++) {
-    //         ay = Math.abs(y + 0.5);
-            
-    //         if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
-    //             grid.at(-1).push(true);
-    //         }
-    //         else {
-    //             grid.at(-1).push(false);
-    //         }
-    //     }
-    // }
 
     for(x = -side/2; x < side/2; x++) {
         ax = Math.abs(x + 0.5);
@@ -43,11 +36,7 @@ function plotGrid(side) {
     }
 
     // Draw on canvas
-    ctx.canvas.width = ctx.canvas.offsetWidth;
-    ctx.canvas.height = ctx.canvas.offsetHeight;
-
-    ctx.fillStyle = backColour;
-    ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+    
     
     nx = grid.length;
     ny = grid[0].length;
@@ -62,10 +51,14 @@ function plotGrid(side) {
         }
 
     }
-    ctx.beginPath();
-    ctx.strokeStyle = circleColour;
-    ctx.arc(ctx.canvas.width / 2, ctx.canvas.height/2, radius * sx, 2*Math.PI, false);
-    ctx.stroke();
+    // ctx.beginPath();
+    // ctx.strokeStyle = circleColour;
+    // ctx.arc(ctx.canvas.width / 2, ctx.canvas.height/2, radius * sx, 2*Math.PI, false);
+    // ctx.stroke();
+
+    
+    end = window.performance.now();
+    console.log("elapsed = ", end - start)
 }
 
 // Run on start
@@ -75,6 +68,7 @@ plotGrid(r);
 
 sizeInput.addEventListener("change", ()=> {
     r = parseInt(sizeInput.value);
+    if(r < 2 || r > 2000) return;
     plotGrid(r)
 })
 

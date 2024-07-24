@@ -156,11 +156,10 @@ function handleMouseover(evt, grid) {
 
     n = grid.length;
 
-    // if(!grid[i][j]) return;
-
     // Count horizontally
     d = 1;
     nx = 1;
+    nxAbove = 0;
     while(i + d < n && grid[i+d][j]) {
         nx++;
         d++;
@@ -169,11 +168,13 @@ function handleMouseover(evt, grid) {
     while(i - d >= 0 && grid[i-d][j]) {
         nx++;
         d++;
+        nxAbove++;
     }
     
     // Count vertically
     d = 1;
     ny = 1;
+    nyAbove = 0;
     while(j + d < n && grid[i][j+d]) {
         ny++;
         d++;
@@ -182,6 +183,7 @@ function handleMouseover(evt, grid) {
     while(j - d >= 0 && grid[i][j-d]) {
         ny++;
         d++;
+        nyAbove++;
     }
 
     console.log(nx, ny)
@@ -195,18 +197,18 @@ function handleMouseover(evt, grid) {
     }
 
     vTempBar = document.createElementNS(svgns, 'rect');
-    vTempBar.setAttribute("x", `${(i*1 - borderSize) * sx}%`);
-    vTempBar.setAttribute("y", `0%`);
-    vTempBar.setAttribute("width", `${sx}%`);
-    vTempBar.setAttribute("height", `100%`);
+    vTempBar.setAttribute("x", `${(i*1 + borderSize) * sx}%`);
+    vTempBar.setAttribute("y", `${(borderSize + j - nyAbove)*sy}%`);
+    vTempBar.setAttribute("width", `${(1 - 2*borderSize) * sx}%`);
+    vTempBar.setAttribute("height", `${(ny - 2*borderSize) * sx}%`);
     vTempBar.setAttribute("fill", tempBarColour);
     vTempBar.setAttribute("pointer-events", "none")
     svg.appendChild(vTempBar);
     hTempBar = document.createElementNS(svgns, 'rect');
-    hTempBar.setAttribute("y", `${(j*1 - borderSize) * sx}%`);
-    hTempBar.setAttribute("x", `0%`);
-    hTempBar.setAttribute("height", `${sy}%`);
-    hTempBar.setAttribute("width", `100%`);
+    hTempBar.setAttribute("y", `${(j*1 + borderSize) * sy}%`);
+    hTempBar.setAttribute("x", `${(borderSize + i - nxAbove)*sx}%`);
+    hTempBar.setAttribute("height", `${(1 - 2*borderSize) * sy}%`);
+    hTempBar.setAttribute("width", `${(nx - 2*borderSize) * sy}%`);
     hTempBar.setAttribute("fill", tempBarColour);
     hTempBar.setAttribute("pointer-events", "none")
     svg.appendChild(hTempBar);
@@ -215,7 +217,6 @@ function handleMouseover(evt, grid) {
 
 // IMPROVEMENTS:
 /**
- * - Reduce lag by removing all the useless elements. Plot long lines instead.
  * - Display number of blocks in x and y directions.
  * - Make max zoom a function of the number of blocks.
  */

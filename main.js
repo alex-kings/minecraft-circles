@@ -14,10 +14,10 @@ const svgns = "http://www.w3.org/2000/svg";
 
 
 // Parameters
-let zoom = 1;
 let side = 4;
 sizeInput.value = side;
-zoomInput.value = 0;
+
+svg.style.backgroundColor = offColour;
 
 // Run on start
 plotGrid();
@@ -44,10 +44,13 @@ function plotGrid() {
         for(j = 0; j < side; j++) {
             y = j-s;
             ay = Math.abs(y + 0.5);
-            
-            let colour = radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2);
-            grid.at(-1).push(colour);
-            
+            if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
+                grid.at(-1).push(true);
+            }
+            else {
+                grid.at(-1).push(false);
+                continue;
+            }
             let rect = document.createElementNS(svgns, 'rect');
             rect.onmouseover = (evt) => {handleMouseover(evt, grid)}
             rect.setAttribute("x", `${(i+borderSize) * sx}%`);
@@ -57,10 +60,13 @@ function plotGrid() {
             rect.setAttribute("height", `${(1-2*borderSize) * sy}%`);
             rect.setAttribute("rx",0);
             rect.setAttribute("ry",0);
-            rect.setAttribute("fill", colour ? onColour : offColour);
+            rect.setAttribute("fill", onColour);
             svg.appendChild(rect);
         }
     }
+
+    // Plot the separation lines
+
 }
 
 sizeInput.addEventListener("change", ()=> {
@@ -93,7 +99,7 @@ function handleMouseover(evt, grid) {
 
     n = grid.length;
 
-    if(!grid[i][j]) return;
+    // if(!grid[i][j]) return;
 
     // Count horizontally
     d = 1;
@@ -120,6 +126,8 @@ function handleMouseover(evt, grid) {
         ny++;
         d++;
     }
+
+    console.log(nx, ny)
 }
 
 
@@ -127,6 +135,5 @@ function handleMouseover(evt, grid) {
 /**
  * - Reduce lag by removing all the useless elements. Plot long lines instead.
  * - Display number of blocks in x and y directions.
- * - Reimplement zoom
  * 
  */

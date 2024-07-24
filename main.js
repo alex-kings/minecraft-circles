@@ -8,6 +8,7 @@ const offColour = "lightGray";
 const onColour = "blue";
 const activeColour = "green"
 const circleColour = "red";
+const tempBarColour = "rgba(255,255,255,0.4)";
 const svg = document.getElementById("svg");
 const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
@@ -18,12 +19,16 @@ const maxWidth = 400;
 sizeInput.setAttribute("min", minWidth);
 sizeInput.setAttribute("max", maxWidth);
 
-
 // Parameters
 let side = 4;
 sizeInput.value = side;
+zoomInput.value = 1;
 
 svg.style.backgroundColor = offColour;
+
+// Temporary bars
+let vTempBar;
+let hTempBar;
 
 // Run on start
 plotGrid();
@@ -180,6 +185,31 @@ function handleMouseover(evt, grid) {
     }
 
     console.log(nx, ny)
+
+    // Remove temporary bars
+    if(vTempBar) {
+        vTempBar.remove();
+    }
+    if(hTempBar) {
+        hTempBar.remove();
+    }
+
+    vTempBar = document.createElementNS(svgns, 'rect');
+    vTempBar.setAttribute("x", `${(i*1 - borderSize) * sx}%`);
+    vTempBar.setAttribute("y", `0%`);
+    vTempBar.setAttribute("width", `${sx}%`);
+    vTempBar.setAttribute("height", `100%`);
+    vTempBar.setAttribute("fill", tempBarColour);
+    vTempBar.setAttribute("pointer-events", "none")
+    svg.appendChild(vTempBar);
+    hTempBar = document.createElementNS(svgns, 'rect');
+    hTempBar.setAttribute("y", `${(j*1 - borderSize) * sx}%`);
+    hTempBar.setAttribute("x", `0%`);
+    hTempBar.setAttribute("height", `${sy}%`);
+    hTempBar.setAttribute("width", `100%`);
+    hTempBar.setAttribute("fill", tempBarColour);
+    hTempBar.setAttribute("pointer-events", "none")
+    svg.appendChild(hTempBar);
 }
 
 

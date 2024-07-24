@@ -7,15 +7,12 @@
     <title>Minecraft Circle Generator</title>
 </head>
 <body>
-    <input type="number" id="sizeInput">
-    <input type="range" id="zoomInput" min="0" max="100">
-    <!-- <div class="canvas-outer">
-        <div id="container" class="container">
-            <canvas id="canvas"></canvas>
+    <input type="number" id="sizeInput" min="2">
+    <input type="range" id="zoomInput" min="100" max="200">
+    <div id="svg-outer" class="svg-outer">
+        <div id="zoom-container">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
-    </div> -->
-    <div class="svg-outer">
-        <svg id="svg" width="100" height="100" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
 
     <script src="./main.js"></script>

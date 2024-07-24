@@ -9,6 +9,7 @@ const onColour = "blue";
 const activeColour = "green"
 const circleColour = "red";
 const svg = document.getElementById("svg");
+const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
 
 
@@ -49,11 +50,11 @@ function plotGrid() {
             
             let rect = document.createElementNS(svgns, 'rect');
             rect.onmouseover = (evt) => {handleMouseover(evt, grid)}
-            rect.setAttribute("x", (i+borderSize) * sx);
-            rect.setAttribute("y", (j+borderSize) * sy);
+            rect.setAttribute("x", `${(i+borderSize) * sx}%`);
+            rect.setAttribute("y", `${(j+borderSize) * sy}%`);
             rect.setAttribute("id", `${i},${j}`)
-            rect.setAttribute("width", (1-2*borderSize)*sx);
-            rect.setAttribute("height", (1-2*borderSize)*sy);
+            rect.setAttribute("width", `${(1-2*borderSize) * sx}%`);
+            rect.setAttribute("height", `${(1-2*borderSize) * sy}%`);
             rect.setAttribute("rx",0);
             rect.setAttribute("ry",0);
             rect.setAttribute("fill", colour ? onColour : offColour);
@@ -76,11 +77,10 @@ window.addEventListener("resize", ()=>{
     timeId = setTimeout(()=>{plotGrid()}, 200);
 })
 
-timeId2 = 0;
+// Handle zoom
 zoomInput.oninput = ()=>{
-    clearTimeout(timeId2);
-    zoom = 0.1 * Number(zoomInput.value) + 1;
-    timeId2 = setTimeout(()=>plotGrid(), 10);
+    zoomContainer.style.width = `${zoomInput.value}%`;
+    zoomContainer.style.height = `${zoomInput.value}%`;
 }
 
 // Handle when mouse is over an SVG element
@@ -127,6 +127,6 @@ function handleMouseover(evt, grid) {
 /**
  * - Reduce lag by removing all the useless elements. Plot long lines instead.
  * - Display number of blocks in x and y directions.
- * 
+ * - Reimplement zoom
  * 
  */

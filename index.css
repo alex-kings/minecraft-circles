@@ -1,12 +1,15 @@
-/* .container {
-    width: 100%;
-    padding-bottom: 100%;
-    position:relative;
-    overflow: scroll;
-} */
  * {
     box-sizing: border-box;
+    font-family:'Courier New', Courier, monospace;
+    --color-1:var(#E8E5DA);
+    --color-2:var(#CDC392);
+    --color-3:var(#9EB7E5);
+    --color-4:var(#648DE5);
+    --color-5:var(#304C89);
  }
+html {
+    background-color:rgb(255, 255, 255);
+}
 .svg-outer {
     width:15rem;
     height:15rem;

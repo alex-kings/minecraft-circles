@@ -3,7 +3,7 @@ const sizeInput = document.getElementById("sizeInput")
 const zoomInput = document.getElementById("zoomInput")
 const container = document.getElementById("container")
 const borderSize = 0.05;
-const backColour = "lightGreen";
+const backColour = "white";
 const offColour = "lightGray";
 const onColour = "blue";
 const activeColour = "green"
@@ -11,6 +11,12 @@ const circleColour = "red";
 const svg = document.getElementById("svg");
 const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
+
+const minWidth = 2;
+const maxWidth = 400;
+
+sizeInput.setAttribute("min", minWidth);
+sizeInput.setAttribute("max", maxWidth);
 
 
 // Parameters
@@ -58,20 +64,66 @@ function plotGrid() {
             rect.setAttribute("id", `${i},${j}`)
             rect.setAttribute("width", `${(1-2*borderSize) * sx}%`);
             rect.setAttribute("height", `${(1-2*borderSize) * sy}%`);
-            rect.setAttribute("rx",0);
-            rect.setAttribute("ry",0);
             rect.setAttribute("fill", onColour);
             svg.appendChild(rect);
         }
     }
 
     // Plot the separation lines
-
+    for(i = 1; i < nx; i++) {
+        let rect = document.createElementNS(svgns, 'rect');
+        rect.setAttribute("x", `${(i*1 - borderSize) * sx}%`);
+        rect.setAttribute("y", `0%`);
+        rect.setAttribute("width", `${(2*borderSize) * sx}%`);
+        rect.setAttribute("height", `100%`);
+        rect.setAttribute("fill", backColour);
+        svg.appendChild(rect);
+        rect = document.createElementNS(svgns, 'rect');
+        rect.setAttribute("y", `${(i*1 - borderSize) * sx}%`);
+        rect.setAttribute("x", `0%`);
+        rect.setAttribute("height", `${(2*borderSize) * sx}%`);
+        rect.setAttribute("width", `100%`);
+        rect.setAttribute("fill", backColour);
+        svg.appendChild(rect);
+    }
+    // Add borders
+    // Left
+    rect = document.createElementNS(svgns, 'rect');
+    rect.setAttribute("x", `0%`);
+    rect.setAttribute("y", `0%`);
+    rect.setAttribute("width", `${borderSize * sx}%`);
+    rect.setAttribute("height", `100%`);
+    rect.setAttribute("fill", backColour);
+    svg.appendChild(rect);
+    // Right
+    rect = document.createElementNS(svgns, 'rect');
+    rect.setAttribute("x", `${100 - borderSize * sx}%`);
+    rect.setAttribute("y", `0%`);
+    rect.setAttribute("width", `${borderSize * sx}%`);
+    rect.setAttribute("height", `100%`);
+    rect.setAttribute("fill", backColour);
+    svg.appendChild(rect);
+    // Top
+    rect = document.createElementNS(svgns, 'rect');
+    rect.setAttribute("x", `0%`);
+    rect.setAttribute("y", `0%`);
+    rect.setAttribute("width", `100%`);
+    rect.setAttribute("height", `${borderSize * sx}%`);
+    rect.setAttribute("fill", backColour);
+    svg.appendChild(rect);
+    // Bottom
+    rect = document.createElementNS(svgns, 'rect');
+    rect.setAttribute("x", `0%`);
+    rect.setAttribute("y", `${100 - borderSize * sx}%`);
+    rect.setAttribute("width", `100%`);
+    rect.setAttribute("height", `${borderSize * sx}%`);
+    rect.setAttribute("fill", backColour);
+    svg.appendChild(rect);
 }
 
 sizeInput.addEventListener("change", ()=> {
     r = parseInt(sizeInput.value);
-    if(r < 2 || r > 400) return;
+    if(r < minWidth || r > maxWidth) return;
     side = r
     plotGrid()
 })
@@ -135,5 +187,5 @@ function handleMouseover(evt, grid) {
 /**
  * - Reduce lag by removing all the useless elements. Plot long lines instead.
  * - Display number of blocks in x and y directions.
- * 
+ * - Make max zoom a function of the number of blocks.
  */

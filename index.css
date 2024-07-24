@@ -4,6 +4,9 @@
     position:relative;
     overflow: scroll;
 } */
+ * {
+    box-sizing: border-box;
+ }
 .svg-outer {
     width:15rem;
     height:15rem;

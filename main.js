@@ -5,14 +5,14 @@ const container = document.getElementById("container")
 const borderSize = 0.05;
 const backColour = "white";
 const offColour = "lightGray";
-const onColour = "blue";
-const activeColour = "green"
-const circleColour = "red";
+const onColour = "#0a791e";
+const activeColour = "green";
 const tempBarColour = "rgba(255,255,255,0.3)";
 const svg = document.getElementById("svg");
 const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
 
+const svgSize = 100;
 const minWidth = 2;
 const maxWidth = 400;
 
@@ -42,8 +42,8 @@ function plotGrid() {
     nx = side;
     ny = side;
 
-    sx = 100/nx;
-    sy = 100/ny;
+    sx = svgSize/nx;
+    sy = svgSize/ny;
 
     // Generate grid
     grid = [];
@@ -142,8 +142,8 @@ window.addEventListener("resize", ()=>{
 
 // Handle zoom
 zoomInput.oninput = ()=>{
-    zoomContainer.style.width = `${zoomInput.value}%`;
-    zoomContainer.style.height = `${zoomInput.value}%`;
+    svg.style.height = `${zoomInput.value}%`;
+    svg.style.width = svg.clientHeight;
 }
 
 // Handle when mouse is over an SVG element

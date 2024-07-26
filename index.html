@@ -7,17 +7,39 @@
     <title>Minecraft Circle Generator</title>
 </head>
 <body>
+    <div class="topnav">
+        <a href="#home">Home</a>
+    </div>
     <div class="main">
-
-        <h1>Minecraft Circle Generator</h1>
-        <p>Here's a super simple tool for making circles in minecraft. I hope it helps!</p>
+        <h1>Easy Minecraft Circles</h1>
+        <div class="info">
+            <div class="info-line">Created by Alexandre Kings</div>
+            <div class="info-line">Last update: <time datetime="2024-07-26">26/07/2024</time></div>
+        </div>
+        <p>
+            Here's a simple tool for making circles in minecraft. 
+            You can hover over the graph to get the number 
+            of blocks required along a line, which helps especially for 
+            larger circles. I hope it helps!
+        </p>
         
-        <input type="number" id="sizeInput">
-        <input type="range" id="zoomInput" min="100" max="400">
-        <div id="svg-outer" class="svg-outer">
-            <div id="zoom-container">
-                <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="tool-layout">
+            <div class="input-container">    
+                <div class="input-line">
+                    <label>Diameter</label>
+                    <input type="number" id="sizeInput">
+                </div>
+                <div class="input-line">
+                    <label>Zoom</label>
+                    <input type="range" id="zoomInput" min="100" max="400">
+                </div>
             </div>
+            <div id="svg-outer" class="svg-outer">
+                <div id="zoom-container">
+                    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+            </div>
+            
         </div>
         
     </div>

@@ -1,18 +1,17 @@
  * {
     box-sizing: border-box;
+    --color-back:#E8E5DA;
+    --color-2:#5f340b;
+    --color-3:#0a791e;
+}
+body {
     font-family:'Courier New', Courier, monospace;
-    --color-1:var(#E8E5DA);
-    --color-2:var(#CDC392);
-    --color-3:var(#9EB7E5);
-    --color-4:var(#648DE5);
-    --color-5:var(#304C89);
- }
-html {
-    background-color:rgb(255, 255, 255);
+    background-color:var(--color-back);
+    margin:0;
 }
 .svg-outer {
-    width:15rem;
-    height:15rem;
+    width:100%;
+    height:30rem;
     position: relative;
     overflow:scroll;
 }
@@ -23,6 +22,59 @@ html {
 }
 svg {
     position:absolute;
-    width:100%;
-    height:100%;
+    width:15rem;
+    height:15rem;
+}
+.info {
+    color:var(--color-2);
+}
+.main {
+    margin: 0 1rem;
+}
+
+.tool-layout {
+    display: flex;
+    gap:1rem;
+    flex-direction: column;
+}
+
+/* inputs */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width:12rem;
+}
+.input-line{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: var(--color-2);
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+@media screen and (min-width: 720px) {
+    .tool-layout {
+        flex-direction: row-reverse;
+    }
 }

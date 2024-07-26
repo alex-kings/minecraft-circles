@@ -84,6 +84,12 @@ svg {
 }
 
 
+.foot {
+    padding:.3rem;
+    background-color:#bd9d7f;
+}
+
+
 @media screen and (min-width: 720px) {
     .tool-layout {
         flex-direction: row-reverse;

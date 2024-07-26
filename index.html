@@ -22,17 +22,24 @@
             of blocks required along a line, which helps especially for 
             larger circles. I hope it helps!
         </p>
-        
+        <hr>
+        <br>
         <div class="tool-layout">
-            <div class="input-container">    
-                <div class="input-line">
-                    <label>Diameter</label>
-                    <input type="number" id="sizeInput">
+            <div class="controls">
+                <div class="input-container">   
+                    <div class="input-line">
+                        <label>Diameter</label>
+                        <input type="number" id="sizeInput">
+                    </div>
+                    <div class="input-line">
+                        <label>Zoom</label>
+                        <input type="range" id="zoomInput" min="100" max="400" value="1">
+                    </div>
+                    
                 </div>
-                <div class="input-line">
-                    <label>Zoom</label>
-                    <input type="range" id="zoomInput" min="100" max="400">
-                </div>
+                <div class="disp-line">Total blocks: <span id="total-nb-blocks"></span></div>
+                <div class="disp-line">Blocks along x: <span id="blocks-x">0</span></div>
+                <div class="disp-line">Blocks along y: <span id="blocks-y">0</span></div>
             </div>
             <div id="svg-outer" class="svg-outer">
                 <div id="zoom-container">

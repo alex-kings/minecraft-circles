@@ -12,6 +12,10 @@ const svg = document.getElementById("svg");
 const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
 
+const nbBlocksElement = document.getElementById("total-nb-blocks");
+const nbBlocksXElement = document.getElementById("blocks-x");
+const nbBlocksYElement = document.getElementById("blocks-y");
+
 const svgSize = 100;
 const minWidth = 2;
 const maxWidth = 400;
@@ -22,7 +26,8 @@ sizeInput.setAttribute("max", maxWidth);
 // Parameters
 let side = 4;
 sizeInput.value = side;
-zoomInput.value = 1;
+
+updateZoom();
 
 svg.style.backgroundColor = offColour;
 
@@ -34,8 +39,14 @@ let hTempBar;
 plotGrid();
 
 function plotGrid() {
+    // Reinitialize nb blocks
+    updateZoom();
+    nbBlocksXElement.innerText = 0;
+    nbBlocksYElement.innerText = 0;
+
     radius = side/2 - 0.65;
     s = side/2;
+    let nbBlocks = 0;
 
     svg.innerHTML = ""
     
@@ -57,6 +68,7 @@ function plotGrid() {
             ay = Math.abs(y + 0.5);
             if(radius < Math.sqrt((ax + 0.5)**2 + (ay+0.5)**2) && radius > Math.sqrt((ax-0.501)**2 + (ay - 0.501)**2)) {
                 grid.at(-1).push(true);
+                nbBlocks ++;
             }
             else {
                 grid.at(-1).push(false);
@@ -124,6 +136,13 @@ function plotGrid() {
     rect.setAttribute("height", `${borderSize * sx}%`);
     rect.setAttribute("fill", backColour);
     svg.appendChild(rect);
+
+    if(nbBlocks >= 64) {
+        nbBlocksElement.innerText = `${nbBlocks} (${Math.floor(nbBlocks/64)} stacks + ${nbBlocks%64})`;
+    }
+    else {
+        nbBlocksElement.innerText = nbBlocks;
+    }
 }
 
 sizeInput.addEventListener("change", ()=> {
@@ -141,9 +160,18 @@ window.addEventListener("resize", ()=>{
 })
 
 // Handle zoom
-zoomInput.oninput = ()=>{
-    svg.style.height = `${zoomInput.value}%`;
-    svg.style.width = svg.clientHeight;
+zoomInput.oninput = updateZoom;
+window.onresize = updateZoom;
+
+function updateZoom() {
+    if(svg.style.clientHeight < svg.style.clientWidth) {
+        svg.style.height = `${zoomInput.value}%`;
+        svg.style.width = svg.clientHeight;
+    }
+    else {
+        svg.style.width = `${zoomInput.value}%`;
+        svg.style.height = svg.clientWidth;
+    }
 }
 
 // Handle when mouse is over an SVG element
@@ -186,7 +214,9 @@ function handleMouseover(evt, grid) {
         nyAbove++;
     }
 
-    console.log(nx, ny)
+    // Update text
+    nbBlocksXElement.innerText = nx;
+    nbBlocksYElement.innerText = ny;
 
     // Remove temporary bars
     if(vTempBar) {
@@ -213,7 +243,6 @@ function handleMouseover(evt, grid) {
     hTempBar.setAttribute("pointer-events", "none")
     svg.appendChild(hTempBar);
 }
-
 
 // IMPROVEMENTS:
 /**

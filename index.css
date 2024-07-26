@@ -1,6 +1,6 @@
  * {
     box-sizing: border-box;
-    --color-back:#E8E5DA;
+    --color-back:#f1ecdb;
     --color-2:#5f340b;
     --color-3:#0a791e;
 }
@@ -29,7 +29,8 @@ svg {
     color:var(--color-2);
 }
 .main {
-    margin: 0 1rem;
+    max-width: 50rem;
+    margin:0 .5rem;
 }
 
 .tool-layout {
@@ -47,6 +48,9 @@ svg {
 .input-line{
     display: flex;
     justify-content: space-between;
+}
+.disp-line {
+    margin-bottom: .1rem;
 }
 
 
@@ -76,5 +80,8 @@ svg {
 @media screen and (min-width: 720px) {
     .tool-layout {
         flex-direction: row-reverse;
+    }
+    .main {
+        margin: 0 5rem;
     }
 }

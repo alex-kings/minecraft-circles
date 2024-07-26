@@ -28,6 +28,9 @@ svg {
 .info {
     color:var(--color-2);
 }
+.description {
+    font-size: 1.1em;
+}
 .main {
     max-width: 50rem;
     margin:0 .5rem;

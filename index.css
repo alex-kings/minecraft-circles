@@ -59,6 +59,9 @@ svg {
 .disp-line {
     margin-bottom: .1rem;
 }
+.controls {
+    width:12rem;
+}
 
 
 /* Add a black background color to the top navigation */

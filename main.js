@@ -15,6 +15,7 @@ const svgns = "http://www.w3.org/2000/svg";
 const nbBlocksElement = document.getElementById("total-nb-blocks");
 const nbBlocksXElement = document.getElementById("blocks-x");
 const nbBlocksYElement = document.getElementById("blocks-y");
+const stackSpan = document.getElementById("stackSpan")
 
 const svgSize = 100;
 const minWidth = 2;
@@ -137,11 +138,15 @@ function plotGrid() {
     rect.setAttribute("fill", backColour);
     svg.appendChild(rect);
 
-    if(nbBlocks >= 64) {
-        nbBlocksElement.innerText = `${nbBlocks} (${Math.floor(nbBlocks/64)} stacks + ${nbBlocks%64})`;
+    
+    nbBlocksElement.innerText = nbBlocks;
+    nbStacks = Math.floor(nbBlocks/64);
+    overStack = nbBlocks%64;
+    if(nbStacks > 0) {
+        stackSpan.innerText = ` (${nbStacks} stack${nbStacks > 1 ? "s" : ""}${overStack ? " + " + overStack : ""})`;
     }
     else {
-        nbBlocksElement.innerText = nbBlocks;
+        stackSpan.innerText = ``
     }
 }
 

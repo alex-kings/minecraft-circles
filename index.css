@@ -32,6 +32,9 @@ svg {
     max-width: 50rem;
     margin:0 .5rem;
 }
+.blockSpan {
+    font-weight: bold;
+}
 
 .tool-layout {
     display: flex;
@@ -44,6 +47,7 @@ svg {
     display: flex;
     flex-direction: column;
     width:12rem;
+    margin-bottom: .5rem;
 }
 .input-line{
     display: flex;

@@ -1,6 +1,6 @@
  * {
     box-sizing: border-box;
-    --color-back:#f1ecdb;
+    --color-back:#f1eee5;
     --color-2:#5f340b;
     --color-3:#0a791e;
 }
@@ -11,7 +11,7 @@ body {
 }
 .svg-outer {
     width:100%;
-    height:16rem;
+    height:17rem;
     position: relative;
     overflow:scroll;
 }
@@ -54,10 +54,16 @@ svg {
     width:12rem;
 }
 .foot {
-    padding:.3rem;
+    padding: .3rem .3rem 0rem .3rem;
     background-color:#bd9d7f;
+    font-size: .8em;
 }
-
+.foot-element {
+    padding-bottom: .3rem;
+}
+a {
+    color:inherit;
+}
 
 @media screen and (min-width: 720px) {
     .tool-layout {
@@ -67,6 +73,6 @@ svg {
         margin: 0 5rem;
     }
     .svg-outer {
-        height:25rem;
+        height:27rem;
     }
 }

@@ -64,6 +64,10 @@ svg {
 a {
     color:inherit;
 }
+.comment-section {
+    max-width: 35rem;
+    margin-bottom: 2rem;
+}
 
 @media screen and (min-width: 720px) {
     .tool-layout {

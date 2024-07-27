@@ -11,19 +11,20 @@ body {
 }
 .svg-outer {
     width:100%;
-    height:30rem;
+    height:16rem;
     position: relative;
     overflow:scroll;
 }
-#zoom-container {
+/* #zoom-container {
     width:100%;
     height:100%;
     position:relative;
-}
+} */
 svg {
     position:absolute;
-    width:15rem;
-    height:15rem;
+    /* width:15rem;
+    height:15rem; */
+    aspect-ratio: 1;
 }
 .info {
     color:var(--color-2);
@@ -99,5 +100,8 @@ svg {
     }
     .main {
         margin: 0 5rem;
+    }
+    .svg-outer {
+        height:25rem;
     }
 }

@@ -9,7 +9,8 @@ const onColour = "#0a791e";
 const activeColour = "green";
 const tempBarColour = "rgba(255,255,255,0.3)";
 const svg = document.getElementById("svg");
-const zoomContainer = document.getElementById("zoom-container");
+const svgOuter = document.getElementById("svg-outer");
+// const zoomContainer = document.getElementById("zoom-container");
 const svgns = "http://www.w3.org/2000/svg";
 
 const nbBlocksElement = document.getElementById("total-nb-blocks");
@@ -169,14 +170,18 @@ zoomInput.oninput = updateZoom;
 window.onresize = updateZoom;
 
 function updateZoom() {
-    if(svg.style.clientHeight < svg.style.clientWidth) {
-        svg.style.height = `${zoomInput.value}%`;
-        svg.style.width = svg.clientHeight;
-    }
-    else {
-        svg.style.width = `${zoomInput.value}%`;
-        svg.style.height = svg.clientWidth;
-    }
+    // if(svg.style.clientHeight < svg.style.clientWidth) {
+    //     svg.style.height = `${zoomInput.value}%`;
+    //     svg.style.width = svg.clientHeight;
+    // }
+    // else {
+    //     svg.style.width = `${zoomInput.value}%`;
+    //     svg.style.height = svg.clientWidth;
+    // }
+    z = parseInt(zoomInput.value)*(Math.sqrt(side/3)) + 100;
+    console.log(z)
+    console.log(side)
+    svg.style.width = z + "%";
 }
 
 // Handle when mouse is over an SVG element

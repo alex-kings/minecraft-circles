@@ -48,7 +48,7 @@
                     </div>
                     <div class="input-line">
                         <label>Zoom</label>
-                        <input type="range" id="zoomInput" min="100" max="400" value="1">
+                        <input type="range" id="zoomInput" min="0" max="100" value="0">
                     </div>
                 </div>
                 <div class="disp-line">Total blocks: <span class="blockSpan" id="total-nb-blocks"></span><span id="stackSpan"></span></div>
@@ -56,9 +56,9 @@
                 <div class="disp-line">Blocks along y: <span class="blockSpan" id="blocks-y">0</span></div>
             </div>
             <div id="svg-outer" class="svg-outer">
-                <div id="zoom-container">
-                    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
-                </div>
+                <!-- <div id="zoom-container">
+                </div> -->
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
             </div>
             
         </div>

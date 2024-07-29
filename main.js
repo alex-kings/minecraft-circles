@@ -20,7 +20,7 @@ const stackSpan = document.getElementById("stackSpan")
 
 const svgSize = 100;
 const minWidth = 2;
-const maxWidth = 400;
+const maxWidth = 1000;
 
 sizeInput.setAttribute("min", minWidth);
 sizeInput.setAttribute("max", maxWidth);

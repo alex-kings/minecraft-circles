@@ -59,10 +59,25 @@
         </div>
         
         <br>
-        <br>
+        <hr>
         
-        <h2>Questions</h2>
+        <div class="faq">
+            <h2 class="question">Why another minecraft circle generator?</h2>
+            <p class="answer">
+                There are a few other similar tools on the 
+                web (like <a href="https://donatstudios.com/PixelCircleGenerator">this popular one</a>) 
+                but none I could find offered a way to see the number of blocks along a line. 
+            </p>
+            <h2 class="question">How does it work?</h2>
+            <p class="answer">
+                The <a href="https://en.wikipedia.org/wiki/Euclidean_distance">euclidian distance</a> 
+                between cells and the centre of the grid is calculated and compared to the radius of the circle.
+                This allows positioning blocks along the circumference of the circle.
 
+            </p>
+            <img class="faq-img" src="./square-circle.webp" alt="Blocks positioned along a circle.">
+        
+        </div>
 
         <div class="comment-section">
             <script src="https://giscus.app/client.js"

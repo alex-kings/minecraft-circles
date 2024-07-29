@@ -11,7 +11,7 @@ body {
 }
 .svg-outer {
     width:100%;
-    height:17rem;
+    height:60vh;
     position: relative;
     overflow:scroll;
 }
@@ -77,6 +77,6 @@ a {
         margin: 0 5rem;
     }
     .svg-outer {
-        height:27rem;
+        height:85vh;
     }
 }

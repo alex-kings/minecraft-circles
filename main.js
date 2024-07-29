@@ -6,8 +6,8 @@ const borderSize = 0.05;
 const backColour = "white";
 const offColour = "lightGray";
 const onColour = "#0a791e";
-const activeColour = "green";
-const tempBarColour = "rgba(255,255,255,0.3)";
+const activeColour = "#5f340b";
+const tempBarColour = "rgba(255,255,255,0.2)";
 const svg = document.getElementById("svg");
 const svgOuter = document.getElementById("svg-outer");
 // const zoomContainer = document.getElementById("zoom-container");
@@ -78,6 +78,7 @@ function plotGrid() {
             }
             let rect = document.createElementNS(svgns, 'rect');
             rect.onmouseover = (evt) => {handleMouseover(evt, grid)}
+            rect.onclick = (evt) => {handleClick(evt, grid)}
             rect.setAttribute("x", `${(i+borderSize) * sx}%`);
             rect.setAttribute("y", `${(j+borderSize) * sy}%`);
             rect.setAttribute("id", `${i},${j}`)
@@ -170,17 +171,7 @@ zoomInput.oninput = updateZoom;
 window.onresize = updateZoom;
 
 function updateZoom() {
-    // if(svg.style.clientHeight < svg.style.clientWidth) {
-    //     svg.style.height = `${zoomInput.value}%`;
-    //     svg.style.width = svg.clientHeight;
-    // }
-    // else {
-    //     svg.style.width = `${zoomInput.value}%`;
-    //     svg.style.height = svg.clientWidth;
-    // }
     z = parseInt(zoomInput.value)*(Math.sqrt(side/3)) + 100;
-    console.log(z)
-    console.log(side)
     svg.style.width = z + "%";
 }
 
@@ -252,6 +243,15 @@ function handleMouseover(evt, grid) {
     hTempBar.setAttribute("fill", tempBarColour);
     hTempBar.setAttribute("pointer-events", "none")
     svg.appendChild(hTempBar);
+}
+
+function handleClick(evt, grid) {
+    if(evt.target.getAttribute('fill') == onColour) {
+        evt.target.setAttribute("fill", activeColour);
+    }
+    else {
+        evt.target.setAttribute("fill", onColour);
+    }
 }
 
 // IMPROVEMENTS:
